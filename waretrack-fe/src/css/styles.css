@@ -1,0 +1,29 @@
+/* **************************************************login******************************************** */
+.login-wrapper {
+  padding-block: 50px;
+  padding-left: 70px;
+}
+.btn {
+  background-color: transparent !important;
+  border-color: black !important;
+}
+
+/* **************************************************loginForm******************************************** */
+.max-form {
+  max-width: 500px;
+}
+.dark-bdr-fill {
+  background-color: #edf0f2;
+  border-color: #8f8f8f;
+  border-radius: 5px;
+  padding-block: 12px;
+  height: auto;
+}
+.link-blue {
+  color: #1366d9;
+}
+.blue-btn {
+  background-color: #1366d9 !important;
+  border-color: #8f8f8f !important;
+  padding-block: 12px;
+}
