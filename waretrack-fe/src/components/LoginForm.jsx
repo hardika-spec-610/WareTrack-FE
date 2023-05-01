@@ -2,14 +2,27 @@ import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import "../css/styles.css";
-// import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { fetchLoginData } from "../redux/actions";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  console.log("email", email);
+  console.log("password", password);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please fill in both email and password");
+      return;
+    }
+    await dispatch(fetchLoginData({ email, password }));
+    navigate("/dashboard");
   };
 
   return (
@@ -20,6 +33,7 @@ const LoginForm = () => {
           <Form.Control
             className="dark-bdr-fill"
             type="email"
+            required
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -30,6 +44,7 @@ const LoginForm = () => {
           <Form.Control
             className="dark-bdr-fill"
             type="password"
+            required
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
