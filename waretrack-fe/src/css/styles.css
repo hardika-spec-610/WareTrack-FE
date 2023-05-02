@@ -27,3 +27,50 @@
   border-color: #8f8f8f !important;
   padding-block: 12px;
 }
+
+/* ********************************************SignUpComponent************* */
+.signup-block {
+  padding-block: 50px;
+  padding-right: 10px;
+}
+.font-weight-semibold {
+  font-weight: 500;
+}
+
+/* ******************************media screens*********************** */
+@media screen and (min-width: 1200px) {
+  .login-wrapper {
+    padding-left: 70px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .login-wrapper {
+    padding-left: 70px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .login-wrapper {
+    padding-left: 50px;
+  }
+}
+@media screen and (min-width: 576px) {
+  .login-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .max-form {
+    max-width: 100%;
+  }
+  .signup-block {
+    padding-left: 20px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .login-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .signup-block {
+    padding-left: 10px;
+  }
+}

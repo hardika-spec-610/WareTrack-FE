@@ -4,16 +4,18 @@ import { useState } from "react";
 import "../css/styles.css";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { fetchLoginData } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_ALL_LOGIN } from "../redux/actions";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log("email", email);
-  console.log("password", password);
+  // console.log("email", email);
+  // console.log("password", password);
+  const allUsers = useSelector((state) => state.allUsers.users);
+  console.log("allUsers", allUsers);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +23,32 @@ const LoginForm = () => {
       toast.error("Please fill in both email and password");
       return;
     }
-    await dispatch(fetchLoginData({ email, password }));
-    navigate("/dashboard");
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users/login`,
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("logindata", data);
+        dispatch({
+          type: GET_ALL_LOGIN,
+          payload: data,
+        });
+        navigate("/dashboard");
+      } else {
+        // show some error message e.g bad credentials
+        toast.error("Invalid Email or Password");
+        throw new Error(response.status);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -2,6 +2,8 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import loginReducer from "../reducers/loginReducer";
 import sessionStorage from "redux-persist/es/storage/session";
+import { registerUserReducer } from "../reducers/registerUserReducer";
+import usersReducer from "../reducers/usersReducer";
 
 const persistConfig = {
   storage: sessionStorage,
@@ -14,6 +16,8 @@ const persistConfig = {
 };
 const combinedReducer = combineReducers({
   login: loginReducer,
+  register: registerUserReducer,
+  allUsers: usersReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
