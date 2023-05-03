@@ -13,30 +13,124 @@
   max-width: 500px;
 }
 .dark-bdr-fill {
-  background-color: #edf0f2;
-  border-color: #8f8f8f;
-  border-radius: 5px;
-  padding-block: 12px;
-  height: auto;
+  background-color: #edf0f2 !important;
+  border-color: #8f8f8f !important;
+  border-radius: 5px !important;
+  padding-block: 12px !important;
+  height: auto !important;
 }
 .link-blue {
-  color: #1366d9;
+  color: #1366d9 !important;
 }
 .blue-btn {
   background-color: #1366d9 !important;
   border-color: #8f8f8f !important;
-  padding-block: 12px;
+  padding-block: 12px !important;
 }
 
 /* ********************************************SignUpComponent************* */
+.sub-font-color {
+  color: #808191;
+}
 .signup-block {
-  padding-block: 50px;
-  padding-right: 10px;
+  padding-block: 50px !important;
+  padding-right: 10px !important;
 }
 .font-weight-semibold {
   font-weight: 500;
 }
-
+/* ********************************Sidebar**************************** */
+.sidebar-wrapper {
+  overflow: scroll initial;
+  height: 100vh;
+}
+.sidebar-bg {
+  background: white !important;
+  color: #808191 !important;
+}
+.hPqIab .head-div {
+  padding-block: 15px !important;
+}
+.CzXjK {
+  border-right: 1px solid rgba(173, 173, 173, 0.2);
+}
+.cgXMRY a {
+  color: #808191 !important;
+}
+.kjmbrI.toggled {
+  padding-left: 10px;
+}
+.hPqIab .head-div {
+  align-items: center;
+}
+.cgXMRY .activeClicked > li {
+  background: #1366d9 !important;
+  border-radius: 16px;
+  color: white !important;
+}
+.log-out-red {
+  color: #ff0000;
+}
+.fa {
+  font-size: 24px;
+}
+/* ********************************navbar************************ */
+.navbar-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: hidden !important;
+}
+.nav-wrap {
+  padding-block: 10px;
+  padding-inline: 25px;
+}
+.wel-text {
+  font-size: 25px;
+  font-weight: 600;
+  color: #11142d;
+}
+.blue-color {
+  color: #1366d9;
+}
+.profile-name {
+  color: #11142d;
+  font-size: 14px;
+}
+.profile-role {
+  color: #808191;
+  font-size: 14px;
+}
+/* ***********************************dashboard************************* */
+.hero-section {
+  padding-inline: 25px;
+  padding-block: 20px;
+  height: 100vh;
+  background-color: #edf0f2;
+}
+.card-wrapper {
+  border-radius: 15px;
+  padding-inline: 20px;
+  padding-block: 15px;
+  color: white !important;
+}
+.card-color1 {
+  background-color: #009ed8;
+}
+.card-color2 {
+  background-color: #fd8539;
+}
+.card-color3 {
+  background-color: #0acf83;
+}
+.card-color4 {
+  background-color: #fe6d8e;
+}
+.number-size {
+  font-size: 24px;
+  font-weight: 500;
+}
 /* ******************************media screens*********************** */
 @media screen and (min-width: 1200px) {
   .login-wrapper {
