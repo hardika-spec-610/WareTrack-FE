@@ -12,7 +12,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
+  //   const [sortBy, setSortBy] = useState(null);
   const products = useSelector((state) => state.allProducts.products.products);
   console.log("products", products);
 
@@ -31,10 +31,20 @@ const Products = () => {
     dispatch(getAllProducts());
   };
 
-  const handleOptionSelect = (eventKey) => {
+  const handleOptionSelect = (eventKey, e) => {
     setSelectedOption(eventKey);
-    setSortBy(eventKey);
-    // Perform sort operation
+  };
+
+  const sortedProducts = () => {
+    if (selectedOption === "Name") {
+      return [...products].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (selectedOption === "Category") {
+      return [...products].sort((a, b) => a.category.localeCompare(b.category));
+    } else if (selectedOption === "Price") {
+      return [...products].sort((a, b) => a.price - b.price);
+    } else {
+      return products;
+    }
   };
 
   return (
@@ -96,11 +106,18 @@ const Products = () => {
               </Button>
             </div>
           </div>
-          {query !== "" ? (
-            <>
-              <h4 className="px-0 mb-3 mt-5">Searched Song</h4>
-              <Row>
-                {products
+          <Row className="mt-4">
+            {query === ""
+              ? sortedProducts().map((p) => (
+                  <ProductCard
+                    key={p._id}
+                    imageUrl={p.imageUrl}
+                    name={p.name}
+                    category={p.category}
+                    price={p.price}
+                  />
+                ))
+              : products
                   .filter((searchedProduct) =>
                     searchedProduct.name.toLocaleLowerCase().includes(query)
                   )
@@ -108,25 +125,12 @@ const Products = () => {
                     <ProductCard
                       key={p._id}
                       imageUrl={p.imageUrl}
+                      category={p.category}
                       name={p.name}
                       price={p.price}
                     />
                   ))}
-              </Row>
-            </>
-          ) : (
-            <Row className="mt-4">
-              {products &&
-                products.map((p) => (
-                  <ProductCard
-                    key={p._id}
-                    imageUrl={p.imageUrl}
-                    name={p.name}
-                    price={p.price}
-                  />
-                ))}
-            </Row>
-          )}
+          </Row>
         </div>
       </div>
     </div>
