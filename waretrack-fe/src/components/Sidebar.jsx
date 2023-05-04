@@ -36,14 +36,28 @@ const Sidebar = () => {
                 Dashboard
               </CDBSidebarMenuItem>
             </Link>
-            <Link to="/dashboard">
+            <Link
+              to="/products"
+              className={
+                location.pathname === "/products"
+                  ? "nav-link activeClicked"
+                  : "nav-link sub-font-color "
+              }
+            >
               <CDBSidebarMenuItem icon="shopping-bag">
                 {/* <BsBag size="22px" className="mr-3" /> */}
                 {/* <img src={bagIcon} alt="icon" className="mr-3" /> */}
                 Products
               </CDBSidebarMenuItem>
             </Link>
-            <Link to="/dashboard">
+            <Link
+              to="/add-product"
+              className={
+                location.pathname === "/add-product"
+                  ? "nav-link activeClicked"
+                  : "nav-link sub-font-color "
+              }
+            >
               <CDBSidebarMenuItem icon="plus-circle">
                 {/* <BsBagPlus size="22px" className="mr-3" /> */}
                 {/* <img src={addToBag} alt="icon" className="mr-3" /> */}

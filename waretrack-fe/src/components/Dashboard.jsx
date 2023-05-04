@@ -19,8 +19,8 @@ const Dashboard = () => {
         <div className="hero-section">
           <h5>Dashboard</h5>
 
-          <Row>
-            <Col xs={12} sm={12} md={6} lg={3} xl={3}>
+          <Row className="mt-3">
+            <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-3 mb-sm-3">
               <div className="card-wrapper card-color1">
                 <DashboardCard
                   cartTitle="Total Products"
@@ -29,7 +29,7 @@ const Dashboard = () => {
                 />
               </div>
             </Col>
-            <Col xs={12} sm={12} md={6} lg={3} xl={3}>
+            <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-3 mb-sm-3">
               <div className="card-wrapper card-color2">
                 <DashboardCard
                   cartTitle="Total Store Value"
@@ -38,7 +38,7 @@ const Dashboard = () => {
                 />
               </div>
             </Col>
-            <Col xs={12} sm={12} md={6} lg={3} xl={3}>
+            <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-3 mb-sm-3">
               <div className="card-wrapper card-color3">
                 <DashboardCard
                   cartTitle="Out of Stock"
@@ -47,7 +47,7 @@ const Dashboard = () => {
                 />
               </div>
             </Col>
-            <Col xs={12} sm={12} md={6} lg={3} xl={3}>
+            <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-3 mb-sm-3">
               <div className="card-wrapper card-color4">
                 <DashboardCard
                   cartTitle="All Categories"

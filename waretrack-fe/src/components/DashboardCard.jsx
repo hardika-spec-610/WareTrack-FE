@@ -10,7 +10,7 @@ const DashboardCard = (props) => {
           <p className="mb-0 number-size">{props.numbers}</p>
         </div>
       </Col>
-      <Col xs={4} sm={4} md={4} lg={4} className="pr-0">
+      <Col xs={4} sm={4} md={4} lg={4} className="pr-0 pl-0">
         <div className="text-right">
           <img src={props.icon} alt="cart icon" />
         </div>

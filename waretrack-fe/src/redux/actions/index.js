@@ -3,6 +3,9 @@ export const REGISTER_USER = "REGISTER_USER";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 export const GET_USERS_FAILURE = "GET_USERS_FAILURE";
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_PRODUCTS_LOADING = "GET_PRODUCTS_LOADING";
+export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -44,6 +47,45 @@ export const getAllUsers = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const getAllProducts = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("products", data);
+        dispatch({
+          type: GET_PRODUCTS,
+          payload: data,
+        });
+        dispatch({
+          type: GET_PRODUCTS_LOADING,
+          payload: false,
+        });
+      } else {
+        dispatch({
+          type: GET_PRODUCTS_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: GET_PRODUCTS_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: GET_PRODUCTS_LOADING,
+        payload: false,
+      });
+      dispatch({
+        type: GET_PRODUCTS_ERROR,
+        payload: true,
+      });
     }
   };
 };

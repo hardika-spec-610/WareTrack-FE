@@ -4,6 +4,7 @@ import loginReducer from "../reducers/loginReducer";
 import sessionStorage from "redux-persist/es/storage/session";
 import { registerUserReducer } from "../reducers/registerUserReducer";
 import usersReducer from "../reducers/usersReducer";
+import allProductsReducer from "../reducers/allProductsReducer";
 
 const persistConfig = {
   storage: sessionStorage,
@@ -18,6 +19,7 @@ const combinedReducer = combineReducers({
   login: loginReducer,
   register: registerUserReducer,
   allUsers: usersReducer,
+  allProducts: allProductsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
