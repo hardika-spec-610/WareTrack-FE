@@ -4,8 +4,12 @@ export const GET_USERS = "GET_USERS";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 export const GET_USERS_FAILURE = "GET_USERS_FAILURE";
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const GET_PRODUCTS_LOADING = "GET_PRODUCTS_LOADING";
-export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const ADD_PRODUCT_LOADING = "ADD_PRODUCT_LOADING";
+export const ADD_PRODUCT_ERROR = "ADD_PRODUCT_ERROR";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const UPDATE_PRODUCT_ERROR = "UPDATE_PRODUCT_ERROR";
+export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -63,28 +67,84 @@ export const getAllProducts = () => {
           type: GET_PRODUCTS,
           payload: data,
         });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getOneProduct = (productId) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/products/${productId}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("one product", data);
         dispatch({
-          type: GET_PRODUCTS_LOADING,
-          payload: false,
-        });
-      } else {
-        dispatch({
-          type: GET_PRODUCTS_LOADING,
-          payload: false,
-        });
-        dispatch({
-          type: GET_PRODUCTS_ERROR,
-          payload: true,
+          type: GET_ONE_PRODUCT,
+          payload: data,
         });
       }
     } catch (error) {
-      dispatch({
-        type: GET_PRODUCTS_LOADING,
-        payload: false,
+      console.log(error);
+    }
+  };
+};
+
+export const addProductAction = (productData) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
+        method: "POST",
+        body: JSON.stringify(productData),
+        headers: { "Content-Type": "application/json" },
       });
+
+      if (response.ok) {
+        const newProductData = await response.json();
+        console.log("newProductData", newProductData);
+        dispatch({
+          type: ADD_PRODUCT,
+          payload: newProductData,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateProduct = (productId, data) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/products/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update product.");
+      }
+
+      const updatedProduct = await response.json();
       dispatch({
-        type: GET_PRODUCTS_ERROR,
-        payload: true,
+        type: UPDATE_PRODUCT,
+        payload: updatedProduct,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_PRODUCT_ERROR,
+        payload: error.message,
       });
     }
   };

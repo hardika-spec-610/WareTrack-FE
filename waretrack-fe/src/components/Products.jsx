@@ -10,20 +10,22 @@ import { getAllProducts } from "../redux/actions";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.allProducts.products.products);
+  // console.log("products", products);
   const [query, setQuery] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
-  //   const [sortBy, setSortBy] = useState(null);
-  const products = useSelector((state) => state.allProducts.products.products);
-  console.log("products", products);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     dispatch(getAllProducts());
+
+    sortedProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
-    console.log("search", query);
+    // console.log("search", query);
   };
 
   const handleSubmit = async (e) => {
@@ -37,15 +39,24 @@ const Products = () => {
 
   const sortedProducts = () => {
     if (selectedOption === "Name") {
-      return [...products].sort((a, b) => a.name.localeCompare(b.name));
+      setFilteredProducts(
+        [...products].sort((a, b) => a.name.localeCompare(b.name))
+      );
     } else if (selectedOption === "Category") {
-      return [...products].sort((a, b) => a.category.localeCompare(b.category));
+      setFilteredProducts(
+        [...products].sort((a, b) => a.category.localeCompare(b.category))
+      );
     } else if (selectedOption === "Price") {
-      return [...products].sort((a, b) => a.price - b.price);
+      setFilteredProducts([...products].sort((a, b) => a.price - b.price));
     } else {
-      return products;
+      setFilteredProducts(products);
     }
   };
+
+  useEffect(() => {
+    sortedProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedOption]);
 
   return (
     <div className="d-flex">
@@ -107,17 +118,19 @@ const Products = () => {
             </div>
           </div>
           <Row className="mt-4">
-            {query === ""
-              ? sortedProducts().map((p) => (
+            {query === "" && filteredProducts
+              ? filteredProducts.map((p) => (
                   <ProductCard
                     key={p._id}
                     imageUrl={p.imageUrl}
                     name={p.name}
                     category={p.category}
                     price={p.price}
+                    productId={p._id}
                   />
                 ))
-              : products
+              : filteredProducts &&
+                filteredProducts
                   .filter((searchedProduct) =>
                     searchedProduct.name.toLocaleLowerCase().includes(query)
                   )
@@ -128,6 +141,7 @@ const Products = () => {
                       category={p.category}
                       name={p.name}
                       price={p.price}
+                      productId={p._id}
                     />
                   ))}
           </Row>
