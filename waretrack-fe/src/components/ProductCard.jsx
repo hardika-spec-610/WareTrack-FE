@@ -38,13 +38,13 @@ const ProductCard = (props) => {
           </Card.Body>
           <hr className="m-0" />
           <div className="d-flex justify-content-beetween aöign-items-center">
-            <Link className="btm-btn eye-btn">
-              <BsEyeFill size="22px" color="#808191" className="white-icon" />
-            </Link>
             <Link
-              className="btm-btn edit-btn"
+              className="btm-btn eye-btn"
               to={`/details/${props.productId}`}
             >
+              <BsEyeFill size="22px" color="#808191" className="white-icon" />
+            </Link>
+            <Link className="btm-btn edit-btn">
               <MdEditDocument
                 size="22px"
                 color="#808191"
