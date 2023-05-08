@@ -10,6 +10,7 @@ import SignUpcomponent from "./components/SignUpComponent";
 import Products from "./components/Products";
 import AddProducts from "./components/AddProducts";
 import ProductDetails from "./components/ProductDetails";
+import EditProduct from "./components/EditProduct";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route element={<Products />} path="/products" />
             <Route element={<AddProducts />} path="/add-product" />
             <Route element={<ProductDetails />} path="/details/:productId" />
+            <Route element={<EditProduct />} path="/edit/:productId" />
           </Routes>
         </Router>
       </header>

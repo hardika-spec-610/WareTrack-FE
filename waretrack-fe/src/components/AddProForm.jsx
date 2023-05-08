@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { addProductAction } from "../redux/actions";
+import { toast } from "react-toastify";
 
 const AddProForm = () => {
-  const dispatch = useDispatch();
   const [addProduct, setAddProduct] = useState({
     name: "",
     brand: "",
@@ -36,8 +34,8 @@ const AddProForm = () => {
         console.log("data", newProduct);
         return newProduct;
       } else {
-        alert("problem posting blog");
-        console.log(response);
+        toast.error("problem posting product");
+        // console.log(response);
       }
     } catch (error) {
       console.log(error);
@@ -51,6 +49,14 @@ const AddProForm = () => {
     let createProduct = await sendNewItem();
     console.log("createProduct1", createProduct);
     if (createProduct && createProduct._id) {
+      setAddProduct({
+        name: "",
+        brand: "",
+        price: "",
+        category: "electronics",
+        quantity: 0,
+        description: "",
+      });
       console.log("createProduct", createProduct);
       console.log("createdBlogID", createProduct._id);
 
@@ -58,8 +64,9 @@ const AddProForm = () => {
       if (setFile) {
         postImage(setFile[0], createProduct._id);
       }
+      toast.success("Add new product successful!");
     } else {
-      console.log("Error creating product");
+      toast.error("problem posting product");
     }
   };
 

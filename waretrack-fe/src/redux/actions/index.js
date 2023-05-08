@@ -8,8 +8,12 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const ADD_PRODUCT_LOADING = "ADD_PRODUCT_LOADING";
 export const ADD_PRODUCT_ERROR = "ADD_PRODUCT_ERROR";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const UPDATE_PRODUCT_ERROR = "UPDATE_PRODUCT_ERROR";
 export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+
+let token = localStorage.getItem("accessToken");
+console.log("token", token);
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -17,7 +21,9 @@ export const registerUser = (userData) => {
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/users`, {
         method: "POST",
         body: JSON.stringify(userData),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (response.ok) {
@@ -39,7 +45,11 @@ export const registerUser = (userData) => {
 export const getAllUsers = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BE_URL}/users`);
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -58,7 +68,11 @@ export const getAllUsers = () => {
 export const getAllProducts = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`);
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -78,7 +92,12 @@ export const getOneProduct = (productId) => {
   return async (dispatch, getState) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BE_URL}/products/${productId}`
+        `${process.env.REACT_APP_BE_URL}/products/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response.ok) {
@@ -101,7 +120,10 @@ export const addProductAction = (productData) => {
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
         method: "POST",
         body: JSON.stringify(productData),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {
@@ -127,6 +149,7 @@ export const updateProduct = (productId, data) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }
@@ -142,10 +165,102 @@ export const updateProduct = (productId, data) => {
         payload: updatedProduct,
       });
     } catch (error) {
-      dispatch({
-        type: UPDATE_PRODUCT_ERROR,
-        payload: error.message,
+      console.log(error);
+    }
+  };
+};
+
+export const createProduct = (data, productImage) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+      if (res.ok) {
+        const data = await res.json();
+
+        if (productImage) {
+          const formData = new FormData();
+          formData.append("imageUrl", productImage);
+
+          try {
+            let response = await fetch(
+              `${process.env.REACT_APP_BE_URL}/products/${data._id}/upload`,
+              {
+                method: "POST",
+                body: formData,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            if (response.ok) {
+              dispatch(getAllProducts());
+              // console.log("Image Uploaded Successfully");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        // console.log("postdata", data);
+        dispatch({
+          type: CREATE_PRODUCT,
+          payload: data,
+        });
+      }
+    } catch (error) {}
+  };
+};
+
+export const updateProductImage = (productId, data) => {
+  return async (dispatch) => {
+    console.log("what the fuck is happening here", data);
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/products/${productId}/upload`,
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        dispatch(getAllProducts());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteProduct = (productId) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/products/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        dispatch({
+          type: DELETE_PRODUCT,
+          payload: productId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };

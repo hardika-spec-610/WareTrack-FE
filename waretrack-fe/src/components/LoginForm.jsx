@@ -38,8 +38,10 @@ const LoginForm = () => {
         console.log("logindata", data);
         dispatch({
           type: GET_ALL_LOGIN,
-          payload: data,
+          payload: data.accessToken,
         });
+        localStorage.setItem("accessToken", data.accessToken);
+        console.log("accessToken", data.accessToken);
         navigate("/dashboard");
       } else {
         // show some error message e.g bad credentials

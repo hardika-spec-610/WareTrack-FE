@@ -3,8 +3,14 @@ import { BsEyeFill } from "react-icons/bs";
 import { MdEditDocument, MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import image1 from "../assets/image-commen.svg";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../redux/actions";
 
 const ProductCard = (props) => {
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteProduct(props.product));
+  };
   return (
     <Col className=" col-12 mb-4 col-sm-12 mb-sm-4 col-md-4 mb-md-4 col-lg-4 mb-lg-4 col-xl-3 d-flex justify-content-stretch">
       <Card className="product-card w-100">
@@ -31,6 +37,10 @@ const ProductCard = (props) => {
                 <span className="ml-auto ">{props.category}</span>
               </span>
               <span className="d-flex">
+                <span className="sub-text-color">ProductInStock</span>
+                <span className="ml-auto">{props.quantity}</span>
+              </span>
+              <span className="d-flex">
                 <span className="sub-text-color">Price</span>
                 <span className="ml-auto price-color">{props.price}€</span>
               </span>
@@ -44,14 +54,14 @@ const ProductCard = (props) => {
             >
               <BsEyeFill size="22px" color="#808191" className="white-icon" />
             </Link>
-            <Link className="btm-btn edit-btn">
+            <Link className="btm-btn edit-btn" to={`/edit/${props.productId}`}>
               <MdEditDocument
                 size="22px"
                 color="#808191"
                 className="white-icon"
               />
             </Link>
-            <Link className="btm-btn delete-btn">
+            <Link className="btm-btn delete-btn" onClick={handleDelete}>
               <MdDelete size="22px" color="#808191" className="white-icon" />
             </Link>
           </div>

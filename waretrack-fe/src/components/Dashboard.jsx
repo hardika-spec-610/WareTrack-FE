@@ -7,8 +7,18 @@ import outOfStock from "../assets/out-of-stock-icon.svg";
 import category from "../assets/Thumbnail-tiles-view-icon.svg";
 import "../css/styles.css";
 import DashboardCard from "./DashboardCard";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      window.location.href = "/";
+      // Reload the page
+      // window.location.reload();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="d-flex">
       <div>

@@ -15,13 +15,22 @@ const Products = () => {
   const [query, setQuery] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [reloadPage, setReloadPage] = useState(false);
 
   useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      window.location.href = "/";
+      // Reload the page
+      // window.location.reload();
+    }
     dispatch(getAllProducts());
-
     sortedProducts();
+    const intervalId = setInterval(() => {
+      setReloadPage((prevState) => !prevState);
+    }, 5000);
+    return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, reloadPage]);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -119,29 +128,38 @@ const Products = () => {
           </div>
           <Row className="mt-4">
             {query === "" && filteredProducts
-              ? filteredProducts.map((p) => (
-                  <ProductCard
-                    key={p._id}
-                    imageUrl={p.imageUrl}
-                    name={p.name}
-                    category={p.category}
-                    price={p.price}
-                    productId={p._id}
-                  />
-                ))
+              ? filteredProducts
+                  .slice()
+                  .reverse()
+                  .map((p) => (
+                    <ProductCard
+                      key={p._id}
+                      product={p._id}
+                      imageUrl={p.imageUrl}
+                      name={p.name}
+                      category={p.category}
+                      price={p.price}
+                      productId={p._id}
+                      quantity={p.quantity}
+                    />
+                  ))
               : filteredProducts &&
                 filteredProducts
                   .filter((searchedProduct) =>
                     searchedProduct.name.toLocaleLowerCase().includes(query)
                   )
+                  .slice()
+                  .reverse()
                   .map((p) => (
                     <ProductCard
                       key={p._id}
+                      product={p._id}
                       imageUrl={p.imageUrl}
                       category={p.category}
                       name={p.name}
                       price={p.price}
                       productId={p._id}
+                      quantity={p.quantity}
                     />
                   ))}
           </Row>

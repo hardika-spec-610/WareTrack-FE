@@ -13,6 +13,15 @@ import Logo from "../assets/Logo.svg";
 const Sidebar = () => {
   const location = useLocation();
 
+  const handleLogout = () => {
+    // Remove user data from session storage
+    localStorage.removeItem("accessToken");
+    // Navigate to login page
+    window.location.href = "/";
+    // Reload the page
+    window.location.reload();
+  };
+
   return (
     <div className="sidebar-wrapper d-flex">
       <CDBSidebar className="sidebar-bg">
@@ -78,7 +87,7 @@ const Sidebar = () => {
                 Account
               </CDBSidebarMenuItem>
             </Link>
-            <Link to="/dashboard">
+            <Link onClick={handleLogout}>
               <CDBSidebarMenuItem className="log-out-red" icon="file-export">
                 {/* <FiLogOut size="22px" className="mr-3" /> */}
                 {/* <img src={logOutIcon} alt="icon" className="mr-3 " /> */}

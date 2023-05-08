@@ -6,7 +6,6 @@ import { registerUserReducer } from "../reducers/registerUserReducer";
 import usersReducer from "../reducers/usersReducer";
 import allProductsReducer from "../reducers/allProductsReducer";
 import addProductReducer from "../reducers/addProductReducer";
-import updatedProductReducer from "../reducers/updatedProductReducer";
 import FetchOneProReducer from "../reducers/FetchOneProReducer";
 
 const persistConfig = {
@@ -24,7 +23,6 @@ const combinedReducer = combineReducers({
   allUsers: usersReducer,
   allProducts: allProductsReducer,
   newProduct: addProductReducer,
-  editproduct: updatedProductReducer,
   specificPro: FetchOneProReducer,
 });
 

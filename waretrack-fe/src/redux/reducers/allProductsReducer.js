@@ -1,4 +1,9 @@
-import { GET_PRODUCTS } from "../actions";
+import {
+  CREATE_PRODUCT,
+  DELETE_PRODUCT,
+  GET_PRODUCTS,
+  UPDATE_PRODUCT,
+} from "../actions";
 
 const initialState = {
   products: [],
@@ -13,6 +18,28 @@ const allProductsReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+      };
+    case CREATE_PRODUCT:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter(
+          (element) => element._id !== action.payload
+        ),
+      };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        products: [
+          ...state.products.filter(
+            (element) => element._id !== action.payload._id
+          ),
+          action.payload,
+        ],
       };
     default:
       return state;
