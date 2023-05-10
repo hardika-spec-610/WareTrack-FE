@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getOneProduct, updateProductImage } from "../redux/actions";
@@ -13,6 +13,8 @@ const EditProductForm = () => {
   console.log(params.productId);
   const proDetails = useSelector((state) => state.specificPro.oneProduct);
   //   console.log("proDetails", proDetails);
+  const isLoading = useSelector((state) => state.allProducts.isLoading);
+  const isError = useSelector((state) => state.allProducts.isLoading);
 
   const [editFormProduct, setEditFormProduct] = useState({
     name: "",
@@ -93,117 +95,136 @@ const EditProductForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>Product Name*</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Product Name"
-          className="pro-input"
-          id="name"
-          value={editFormProduct.name}
-          onChange={(e) =>
-            setEditFormProduct({ ...editFormProduct, name: e.target.value })
-          }
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Select Category*</Form.Label>
-        <Form.Control
-          as="select"
-          className="pro-input"
-          id="category"
-          value={editFormProduct.category}
-          onChange={(e) =>
-            setEditFormProduct({ ...editFormProduct, category: e.target.value })
-          }
-        >
-          <option>electronics</option>
-          <option>household</option>
-          <option>clothing</option>
-          <option>beauty</option>
-        </Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Brand*</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Brand"
-          id="brand"
-          className="pro-input"
-          value={editFormProduct.brand}
-          onChange={(e) =>
-            setEditFormProduct({ ...editFormProduct, brand: e.target.value })
-          }
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Price*</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Selling Price"
-          id="price"
-          className="pro-input"
-          value={editFormProduct.price}
-          onChange={(e) =>
-            setEditFormProduct({ ...editFormProduct, price: e.target.value })
-          }
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Product in stock*</Form.Label>
-        <Form.Control
-          type="number"
-          placeholder="Product in stock"
-          className="pro-input"
-          id="quantity"
-          value={editFormProduct.quantity}
-          onChange={(e) =>
-            setEditFormProduct({ ...editFormProduct, quantity: e.target.value })
-          }
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Description*</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          id="description"
-          className="pro-input"
-          placeholder="Product Description"
-          value={editFormProduct.description}
-          onChange={(e) =>
-            setEditFormProduct({
-              ...editFormProduct,
-              description: e.target.value,
-            })
-          }
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.File
-          type="file"
-          id="imageUrl"
-          onChange={(e) => {
-            // console.log(e.target.files[0]);
-            setEditFormProduct({
-              ...editFormProduct,
-              imageUrl: e.target.files[0],
-            });
-            console.log(
-              "imageurl",
-              editFormProduct.imageUrl,
-              typeof e.target.files[0]
-            );
-          }}
-        />
-      </Form.Group>
-      <div>
-        <Button type="submit" className="mt-2 w-25 blue-btn ">
-          Edit Product
-        </Button>
-      </div>
-    </Form>
+    <>
+      {isLoading && ( // isLoading is true or false
+        <Spinner animation="border" variant="success" />
+      )}
+      {isError && <Alert variant="danger">Aww snap, we got an error!😨</Alert>}
+
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>Product Name*</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Product Name"
+            className="pro-input"
+            id="name"
+            value={editFormProduct.name}
+            onChange={(e) =>
+              setEditFormProduct({ ...editFormProduct, name: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Select Category*</Form.Label>
+          <Form.Control
+            as="select"
+            className="pro-input"
+            id="category"
+            value={editFormProduct.category}
+            onChange={(e) =>
+              setEditFormProduct({
+                ...editFormProduct,
+                category: e.target.value,
+              })
+            }
+          >
+            <option>electronics</option>
+            <option>household</option>
+            <option>clothing</option>
+            <option>beauty</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Brand*</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Brand"
+            id="brand"
+            className="pro-input"
+            value={editFormProduct.brand}
+            onChange={(e) =>
+              setEditFormProduct({
+                ...editFormProduct,
+                brand: e.target.value,
+              })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Price*</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Selling Price"
+            id="price"
+            className="pro-input"
+            value={editFormProduct.price}
+            onChange={(e) =>
+              setEditFormProduct({
+                ...editFormProduct,
+                price: e.target.value,
+              })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Product in stock*</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Product in stock"
+            className="pro-input"
+            id="quantity"
+            value={editFormProduct.quantity}
+            onChange={(e) =>
+              setEditFormProduct({
+                ...editFormProduct,
+                quantity: e.target.value,
+              })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Description*</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            id="description"
+            className="pro-input"
+            placeholder="Product Description"
+            value={editFormProduct.description}
+            onChange={(e) =>
+              setEditFormProduct({
+                ...editFormProduct,
+                description: e.target.value,
+              })
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.File
+            type="file"
+            id="imageUrl"
+            onChange={(e) => {
+              // console.log(e.target.files[0]);
+              setEditFormProduct({
+                ...editFormProduct,
+                imageUrl: e.target.files[0],
+              });
+              console.log(
+                "imageurl",
+                editFormProduct.imageUrl,
+                typeof e.target.files[0]
+              );
+            }}
+          />
+        </Form.Group>
+        <div>
+          <Button type="submit" className="mt-2 w-25 blue-btn ">
+            Edit Product
+          </Button>
+        </div>
+      </Form>
+    </>
   );
 };
 

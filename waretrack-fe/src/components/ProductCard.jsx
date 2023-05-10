@@ -9,7 +9,9 @@ import { deleteProduct } from "../redux/actions";
 const ProductCard = (props) => {
   const dispatch = useDispatch();
   const handleDelete = () => {
-    dispatch(deleteProduct(props.product));
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      dispatch(deleteProduct(props.product));
+    }
   };
   return (
     <Col className=" col-12 mb-4 col-sm-12 mb-sm-4 col-md-4 mb-md-4 col-lg-4 mb-lg-4 col-xl-3 d-flex justify-content-stretch">

@@ -18,7 +18,7 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getOneProduct(params.productId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, params.productId]);
 
   return (
     <div className="navbar-wrapper">
@@ -63,14 +63,14 @@ const ProductDetails = () => {
                     <span className="d-flex mb-2">
                       <span className="sub-text-color">CreatedAt</span>
                       <span className="ml-auto">
-                        {format(parseISO(proDetails.createdAt), "dd/MM/yyyy")}
+                        {new Date(proDetails.createdAt).toLocaleDateString()}
                       </span>
                     </span>
                     <span className="d-flex">
                       <span className="sub-text-color">UpdatedAt</span>
                       <span className="ml-auto ">
                         {" "}
-                        {format(parseISO(proDetails.updatedAt), "dd/MM/yyyy")}
+                        {new Date(proDetails.updatedAt).toLocaleDateString()}
                       </span>
                     </span>
                   </Card.Text>

@@ -18,11 +18,15 @@ const allProductsReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+        isLoading: false,
+        isError: false,
       };
     case CREATE_PRODUCT:
       return {
         ...state,
         products: [...state.products, action.payload],
+        isLoading: false,
+        isError: false,
       };
     case DELETE_PRODUCT:
       return {
@@ -30,6 +34,8 @@ const allProductsReducer = (state = initialState, action) => {
         products: state.products.filter(
           (element) => element._id !== action.payload
         ),
+        isLoading: false,
+        isError: false,
       };
     case UPDATE_PRODUCT:
       return {
@@ -40,6 +46,8 @@ const allProductsReducer = (state = initialState, action) => {
           ),
           action.payload,
         ],
+        isLoading: false,
+        isError: false,
       };
     default:
       return state;

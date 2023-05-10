@@ -40,8 +40,6 @@ const Sidebar = () => {
               }
             >
               <CDBSidebarMenuItem icon="border-all">
-                {/* <RxDashboard size="22px" className="mr-3" /> */}
-                {/* <img src={dashboardIcon} alt="icon" className="mr-3 filter-white" /> */}
                 Dashboard
               </CDBSidebarMenuItem>
             </Link>
@@ -54,8 +52,6 @@ const Sidebar = () => {
               }
             >
               <CDBSidebarMenuItem icon="shopping-bag">
-                {/* <BsBag size="22px" className="mr-3" /> */}
-                {/* <img src={bagIcon} alt="icon" className="mr-3" /> */}
                 Products
               </CDBSidebarMenuItem>
             </Link>
@@ -68,34 +64,23 @@ const Sidebar = () => {
               }
             >
               <CDBSidebarMenuItem icon="plus-circle">
-                {/* <BsBagPlus size="22px" className="mr-3" /> */}
-                {/* <img src={addToBag} alt="icon" className="mr-3" /> */}
                 Add Product
               </CDBSidebarMenuItem>
             </Link>
             <Link to="/dashboard">
-              <CDBSidebarMenuItem icon="file-alt">
-                {/* <BiMessageDetail size="22px" className="mr-3" /> */}
-                {/* <img src={messageIcon} alt="icon" className="mr-3" /> */}
-                Reports
-              </CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="file-alt">Reports</CDBSidebarMenuItem>
             </Link>
             <Link to="/dashboard">
               <CDBSidebarMenuItem icon="user-circle">
-                {/* <MdOutlineAccountCircle size="22px" className="mr-3" /> */}
-                {/* <img src={accountIcon} alt="icon" className="mr-3" /> */}
                 Account
               </CDBSidebarMenuItem>
             </Link>
             <Link onClick={handleLogout}>
               <CDBSidebarMenuItem className="log-out-red" icon="file-export">
-                {/* <FiLogOut size="22px" className="mr-3" /> */}
-                {/* <img src={logOutIcon} alt="icon" className="mr-3 " /> */}
                 Log Out
               </CDBSidebarMenuItem>
             </Link>
           </CDBSidebarMenu>
-          {/* <CDBSidebarMenu></CDBSidebarMenu> */}
         </CDBSidebarContent>
       </CDBSidebar>
     </div>

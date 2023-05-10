@@ -76,7 +76,7 @@ export const getAllProducts = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("products", data);
+        // console.log("products", data);
         dispatch({
           type: GET_PRODUCTS,
           payload: data,

@@ -99,6 +99,7 @@ const AddProForm = () => {
         <Form.Control
           type="text"
           placeholder="Product Name"
+          required
           className="pro-input"
           value={addProduct.name}
           onChange={(e) =>
@@ -111,6 +112,7 @@ const AddProForm = () => {
         <Form.Control
           as="select"
           className="pro-input"
+          required
           value={addProduct.category}
           onChange={(e) =>
             setAddProduct({ ...addProduct, category: e.target.value })
@@ -128,6 +130,7 @@ const AddProForm = () => {
           type="text"
           placeholder="Brand"
           className="pro-input"
+          required
           value={addProduct.brand}
           onChange={(e) =>
             setAddProduct({ ...addProduct, brand: e.target.value })
@@ -139,6 +142,7 @@ const AddProForm = () => {
         <Form.Control
           type="text"
           placeholder="Selling Price"
+          required
           className="pro-input"
           value={addProduct.price}
           onChange={(e) =>
@@ -151,6 +155,7 @@ const AddProForm = () => {
         <Form.Control
           type="number"
           placeholder="Product in stock"
+          required
           className="pro-input"
           value={addProduct.quantity}
           onChange={(e) =>
@@ -164,6 +169,7 @@ const AddProForm = () => {
           as="textarea"
           rows={3}
           className="pro-input"
+          required
           placeholder="Product Description"
           value={addProduct.description}
           onChange={(e) =>
