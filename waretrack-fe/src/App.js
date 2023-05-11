@@ -12,6 +12,7 @@ import AddProducts from "./components/AddProducts";
 import ProductDetails from "./components/ProductDetails";
 import EditProduct from "./components/EditProduct";
 import OrderMain from "./components/Orders/OrderMain";
+import OrderDetailScreen from "./components/Orders/OrderDetailScreen";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route element={<ProductDetails />} path="/details/:productId" />
             <Route element={<EditProduct />} path="/edit/:productId" />
             <Route element={<OrderMain />} path="/orders" />
+            <Route element={<OrderDetailScreen />} path="/orders/:orderId" />
           </Routes>
         </Router>
       </header>

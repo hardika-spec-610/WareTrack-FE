@@ -1,15 +1,25 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NavbarComponent from "../NavbarComponent";
 import Sidebar from "../Sidebar";
 import { Alert, Spinner, Table } from "react-bootstrap";
 import "../../css/styles.css";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import { BsEyeFill } from "react-icons/bs";
+import { useEffect } from "react";
+import { getOrderDetails, listOrders } from "../../redux/actions";
 
 const OrderMain = () => {
+  const dispatch = useDispatch();
   const orders = useSelector((state) => state.orderList.orders);
   const isLoading = useSelector((state) => state.orderList.isLoading);
   const isError = useSelector((state) => state.orderList.isError);
   console.log("orders", orders);
+
+  useEffect(() => {
+    dispatch(listOrders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <div className="d-flex">
@@ -26,7 +36,7 @@ const OrderMain = () => {
             {isError && (
               <Alert variant="danger">Aww snap, we got an error!😨</Alert>
             )}
-            <Table bordered hover className="mb-0">
+            <Table bordered hover className="mb-0" responsive>
               <thead>
                 <tr>
                   <th>Nr.</th>
@@ -36,7 +46,7 @@ const OrderMain = () => {
                   <th>Paid</th>
                   <th>Date</th>
                   <th>Status</th>
-                  {/* <th>Action</th> */}
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,6 +78,19 @@ const OrderMain = () => {
                       ) : (
                         <span className="badge btn-dark">Not Delivered</span>
                       )}
+                    </td>
+                    <td>
+                      <Link
+                        className="btm-btn eye-btn"
+                        to={`/orders/${o._id}`}
+                        onClick={() => dispatch(getOrderDetails(o._id))}
+                      >
+                        <BsEyeFill
+                          size="22px"
+                          color="#808191"
+                          className="white-icon"
+                        />
+                      </Link>
                     </td>
                   </tr>
                 ))}

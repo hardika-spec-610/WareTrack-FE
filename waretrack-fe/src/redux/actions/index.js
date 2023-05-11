@@ -14,6 +14,9 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const ORDER_LIST_LOADING = "ORDER_LIST_LOADING";
 export const ORDER_LIST_SUCCESS = "ORDER_LIST_SUCCESS";
 export const ORDER_LIST_ERROR = "ORDER_LIST_ERROR";
+export const ORDER_DETAILS_LOADING = "ORDER_DETAILS_LOADING";
+export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS";
+export const ORDER_DETAILS_ERROR = "ORDER_DETAILS_ERROR";
 
 let token = localStorage.getItem("accessToken");
 console.log("token", token);
@@ -308,6 +311,51 @@ export const listOrders = () => {
       });
       dispatch({
         type: ORDER_LIST_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+export const getOrderDetails = (orderId) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/orders/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("orderDetails", data);
+        dispatch({
+          type: ORDER_DETAILS_SUCCESS,
+          payload: data,
+        });
+        dispatch({
+          type: ORDER_DETAILS_LOADING,
+          payload: false,
+        });
+      } else {
+        dispatch({
+          type: ORDER_DETAILS_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: ORDER_DETAILS_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: ORDER_DETAILS_LOADING,
+        payload: false,
+      });
+      dispatch({
+        type: ORDER_DETAILS_ERROR,
         payload: true,
       });
     }

@@ -9,7 +9,7 @@ import { Card, Col, Row } from "react-bootstrap";
 const ProductDetails = () => {
   const params = useParams();
   console.log("PARAMS ARE: ", params);
-  console.log("the id of the chosen movie is", params.productId);
+  console.log("the id of the chosen product is", params.productId);
   const dispatch = useDispatch();
   const proDetails = useSelector((state) => state.specificPro.oneProduct);
   console.log("proDetails", proDetails);

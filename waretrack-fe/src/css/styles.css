@@ -275,6 +275,7 @@ input:focus-visible {
   background-color: white;
   padding-inline: 20px;
   padding-block: 20px;
+  border-radius: 12px;
 }
 
 .table-bordered {
@@ -292,6 +293,41 @@ input:focus-visible {
 }
 .table-hover tbody tr:hover {
   background-color: #e8f1fd;
+}
+.order-row {
+  cursor: pointer;
+}
+/* **********************************orderdetails************************** */
+.btn.search-btn {
+  background-color: black !important;
+  color: white !important;
+  border-color: black !important;
+}
+.btn.search-btn:hover {
+  background-color: #1366d9 !important;
+  border-color: #1366d9 !important;
+}
+.order-header {
+  background-color: #1366d9 !important;
+}
+.icon-block {
+  width: 20%;
+}
+.light-icon-color {
+  background-color: #b6d3fa;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.order-right-info,
+.info-b {
+  width: 80%;
+}
+.img-b {
+  width: 20%;
 }
 /* ******************************media screens*********************** */
 @media screen and (min-width: 1200px) {
