@@ -5,7 +5,6 @@ import { getOneProduct } from "../redux/actions";
 import NavbarComponent from "./NavbarComponent";
 import "../css/styles.css";
 import { Card, Col, Row } from "react-bootstrap";
-import { format, parseISO } from "date-fns";
 
 const ProductDetails = () => {
   const params = useParams();

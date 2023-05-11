@@ -270,6 +270,29 @@ input:focus-visible {
   width: 100%;
   height: 300px;
 }
+/* ***************************************orders************** */
+.table-bg {
+  background-color: white;
+  padding-inline: 20px;
+  padding-block: 20px;
+}
+
+.table-bordered {
+  border: 1px solid #808191;
+}
+.table thead th {
+  color: #808191;
+  font-weight: 400;
+}
+.dark-danger {
+  color: #ff0000 !important;
+}
+.dark-green {
+  color: #0acf83 !important;
+}
+.table-hover tbody tr:hover {
+  background-color: #e8f1fd;
+}
 /* ******************************media screens*********************** */
 @media screen and (min-width: 1200px) {
   .login-wrapper {

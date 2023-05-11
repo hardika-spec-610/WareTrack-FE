@@ -8,14 +8,18 @@ import category from "../assets/Thumbnail-tiles-view-icon.svg";
 import "../css/styles.css";
 import DashboardCard from "./DashboardCard";
 import { useEffect } from "react";
+import { listOrders } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
       window.location.href = "/";
       // Reload the page
       // window.location.reload();
     }
+    dispatch(listOrders());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -11,9 +11,13 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const ORDER_LIST_LOADING = "ORDER_LIST_LOADING";
+export const ORDER_LIST_SUCCESS = "ORDER_LIST_SUCCESS";
+export const ORDER_LIST_ERROR = "ORDER_LIST_ERROR";
 
 let token = localStorage.getItem("accessToken");
 console.log("token", token);
+// const token = getState().login.token;
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -214,7 +218,9 @@ export const createProduct = (data, productImage) => {
           payload: data,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
@@ -261,6 +267,49 @@ export const deleteProduct = (productId) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const listOrders = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/orders`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("order", data);
+        dispatch({
+          type: ORDER_LIST_SUCCESS,
+          payload: data,
+        });
+        dispatch({
+          type: ORDER_LIST_LOADING,
+          payload: false,
+        });
+      } else {
+        dispatch({
+          type: ORDER_LIST_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: ORDER_LIST_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: ORDER_LIST_LOADING,
+        payload: false,
+      });
+      dispatch({
+        type: ORDER_LIST_ERROR,
+        payload: true,
+      });
     }
   };
 };

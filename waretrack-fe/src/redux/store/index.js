@@ -7,6 +7,7 @@ import usersReducer from "../reducers/usersReducer";
 import allProductsReducer from "../reducers/allProductsReducer";
 import addProductReducer from "../reducers/addProductReducer";
 import FetchOneProReducer from "../reducers/FetchOneProReducer";
+import orderListReducer from "../reducers/orderReducer";
 
 const persistConfig = {
   storage: sessionStorage,
@@ -24,6 +25,7 @@ const combinedReducer = combineReducers({
   allProducts: allProductsReducer,
   newProduct: addProductReducer,
   specificPro: FetchOneProReducer,
+  orderList: orderListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

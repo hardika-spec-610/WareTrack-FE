@@ -67,8 +67,8 @@ const Sidebar = () => {
                 Add Product
               </CDBSidebarMenuItem>
             </Link>
-            <Link to="/dashboard">
-              <CDBSidebarMenuItem icon="file-alt">Reports</CDBSidebarMenuItem>
+            <Link to="/orders">
+              <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </Link>
             <Link to="/dashboard">
               <CDBSidebarMenuItem icon="user-circle">
