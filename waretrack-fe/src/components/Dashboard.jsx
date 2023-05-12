@@ -4,21 +4,27 @@ import NavbarComponent from "./NavbarComponent";
 import addToCart from "../assets/add-to-cart-icon.svg";
 import euro from "../assets/euro-icon.svg";
 import outOfStock from "../assets/out-of-stock-icon.svg";
-import category from "../assets/Thumbnail-tiles-view-icon.svg";
+// import category from "../assets/Thumbnail-tiles-view-icon.svg";
 import "../css/styles.css";
 import DashboardCard from "./DashboardCard";
 import { useEffect } from "react";
-import { listOrders } from "../redux/actions";
+import { getAllProducts, listOrders } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orderList.orders);
-  const isLoading = useSelector((state) => state.orderList.isLoading);
-  const isError = useSelector((state) => state.orderList.isError);
+  // const isLoading = useSelector((state) => state.orderList.isLoading);
+  // const isError = useSelector((state) => state.orderList.isError);
   const products = useSelector((state) => state.allProducts.products.products);
+  // console.log("productsdashboard", products);
 
   let totalProducts = products.length;
+
+  const totalStoreValue = products.reduce((total, product) => {
+    const productValue = product.quantity * product.price;
+    return total + productValue;
+  }, 0);
 
   let totalSale = 0;
   if (orders) {
@@ -37,8 +43,31 @@ const Dashboard = () => {
       // window.location.reload();
     }
     dispatch(listOrders());
+    dispatch(getAllProducts());
+    gellProducts();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
+
+  const gellProducts = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/products/sort`,
+        {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("productSort", data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="d-flex">
@@ -64,7 +93,7 @@ const Dashboard = () => {
               <div className="card-wrapper card-color2">
                 <DashboardCard
                   cartTitle="Total Store Value"
-                  numbers={totalSale.toFixed(0)}
+                  numbers={totalStoreValue}
                   icon={euro}
                 />
               </div>

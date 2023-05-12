@@ -13,8 +13,18 @@ import ProductDetails from "./components/ProductDetails";
 import EditProduct from "./components/EditProduct";
 import OrderMain from "./components/Orders/OrderMain";
 import OrderDetailScreen from "./components/Orders/OrderDetailScreen";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllProducts, listOrders } from "./redux/actions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listOrders());
+    dispatch(getAllProducts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
   return (
     <div className="App">
       <header className="App-header">

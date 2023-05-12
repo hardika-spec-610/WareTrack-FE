@@ -9,6 +9,7 @@ import addProductReducer from "../reducers/addProductReducer";
 import FetchOneProReducer from "../reducers/FetchOneProReducer";
 import orderListReducer from "../reducers/orderReducer";
 import orderDetailsReducer from "../reducers/orderDetailsReducer";
+import userProfileReducer from "../reducers/profileUserReducer";
 
 const persistConfig = {
   storage: sessionStorage,
@@ -28,6 +29,7 @@ const combinedReducer = combineReducers({
   specificPro: FetchOneProReducer,
   orderList: orderListReducer,
   orderDetails: orderDetailsReducer,
+  profile: userProfileReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
