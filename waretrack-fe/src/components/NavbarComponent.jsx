@@ -42,7 +42,7 @@ const NavbarComponent = () => {
               </div>
             </Col>
             <Col sm={9} md={9} lg={9}>
-              <div>
+              <div className="ml-2">
                 <p className="profile-name mb-0">
                   {profile?.firstName} {profile?.lastName}
                 </p>

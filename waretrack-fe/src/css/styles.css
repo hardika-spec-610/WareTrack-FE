@@ -146,6 +146,19 @@
   font-size: 24px;
   font-weight: 500;
 }
+.selling-block {
+  box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);
+  background: #ffffff;
+  border-radius: 12px;
+  padding-top: 10px;
+}
+.font-size {
+  font-size: 16px;
+}
+.red-danger {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+}
 /* *********************************products************************* */
 .input-group {
   width: 360px !important;

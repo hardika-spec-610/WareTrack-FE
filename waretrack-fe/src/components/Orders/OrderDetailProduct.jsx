@@ -89,16 +89,22 @@ const OrderDetailProduct = (props) => {
                 <td>
                   <div className="d-flex">
                     <div className="img-b">
-                      <img src={item.image} alt={item.name} className="w-100" />
+                      <img
+                        src={item.product?.imageUrl}
+                        alt={item.product?.name}
+                        className="w-100"
+                      />
                     </div>
                     <div className="info-b">
-                      <p className="ml-3">{item.name}</p>
+                      <p className="ml-3">{item.product?.name}</p>
                     </div>
                   </div>
                 </td>
-                <td>{item.price}€</td>
+                <td>{item.product?.price}€</td>
                 <td>{item.qty}</td>
-                <td>{parseFloat(item.qty) * parseFloat(item.price)}€</td>
+                <td>
+                  {parseFloat(item.qty) * parseFloat(item.product.price)}€
+                </td>
               </tr>
             ))}
           </tbody>
@@ -116,7 +122,7 @@ const OrderDetailProduct = (props) => {
             <span>{props.shippingCost}€</span>
             <span>{props.taxPrice}€</span>
             <b>{props.grandTotal}€</b>
-            {props.oderedItem.isPaid ? (
+            {props.isPaid ? (
               <span className="btn-success px-2">Payment done</span>
             ) : (
               <span className="btn-danger px-2">Not Paid</span>

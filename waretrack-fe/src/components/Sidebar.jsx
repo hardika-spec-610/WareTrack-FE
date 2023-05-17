@@ -67,7 +67,14 @@ const Sidebar = () => {
                 Add Product
               </CDBSidebarMenuItem>
             </Link>
-            <Link to="/orders">
+            <Link
+              to="/orders"
+              className={
+                location.pathname === "/orders"
+                  ? "nav-link activeClicked"
+                  : "nav-link sub-font-color "
+              }
+            >
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </Link>
             <Link to="/dashboard">

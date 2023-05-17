@@ -5,12 +5,13 @@ import "../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getOrderDetails } from "../../redux/actions";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import OrderDetailProduct from "./OrderDetailProduct";
 import { format } from "date-fns";
 
 const OrderDetailScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   console.log("PARAMS ARE: ", params);
   const orderDetail = useSelector((state) => state.orderDetails.orders);
@@ -20,7 +21,7 @@ const OrderDetailScreen = () => {
   const isError = useSelector((state) => state.orderDetails.isError);
 
   const total = orderItems.reduce(
-    (acc, item) => acc + item.qty * item.price,
+    (acc, item) => acc + item.qty * item.product.price,
     0
   );
 
@@ -31,6 +32,10 @@ const OrderDetailScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, params.orderId]);
 
+  const handleBackClick = () => {
+    navigate("/orders");
+  };
+
   return (
     <div className="d-flex">
       <div>
@@ -39,7 +44,11 @@ const OrderDetailScreen = () => {
       <div className="navbar-wrapper">
         <NavbarComponent />
         <div className="hero-section">
-          <Button variant="outline-success" className="search-btn">
+          <Button
+            variant="outline-success"
+            className="search-btn"
+            onClick={handleBackClick}
+          >
             Back to Order
           </Button>
           {isLoading && <Spinner animation="border" variant="success" />}
@@ -62,6 +71,7 @@ const OrderDetailScreen = () => {
             shippingCost={orderDetail.shippingPrice}
             taxPrice={orderDetail.taxPrice}
             grandTotal={orderDetail.totalPrice}
+            isPaid={orderDetail.isPaid}
           />
         </div>
       </div>
