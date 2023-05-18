@@ -20,6 +20,7 @@ export const ORDER_DETAILS_ERROR = "ORDER_DETAILS_ERROR";
 export const GET_ME = "GET_ME";
 export const GET_ME_LOADING = "GET_ME_LOADING";
 export const GET_ME_ERROR = "GET_ME_ERROR";
+export const UPDATE_ME = "UPDATE_ME";
 
 let token = localStorage.getItem("accessToken");
 console.log("token", token);
@@ -113,6 +114,55 @@ export const userProfile = () => {
         type: GET_ME_ERROR,
         payload: true,
       });
+    }
+  };
+};
+export const updateUserProfile = (userData) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        console.log("updatedUser ", updatedUser);
+        dispatch({
+          type: UPDATE_ME,
+          payload: updatedUser,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateUserImage = (userId, data) => {
+  return async (dispatch) => {
+    console.log("what the fuck is happening here", data);
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users/${userId}/uploadAvatar`,
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        console.log(res);
+        dispatch(userProfile());
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };

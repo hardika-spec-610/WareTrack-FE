@@ -347,6 +347,35 @@ input:focus-visible {
 .img-b {
   width: 20%;
 }
+/* ************************************Account************************** */
+.account-section {
+  background-color: white;
+  border-radius: 12px;
+}
+.account-input:focus {
+  border: 1px solid #ced4da !important;
+}
+.acc-img {
+  border-radius: 12px;
+}
+.upload-absolute {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.img-border {
+  border: 2px solid #ced4da;
+  border-radius: 12px;
+}
+.secondary-btn {
+  background-color: #6c757d !important;
+  padding: 12px !important;
+  border-color: #6c757d !important;
+}
+.w-30 {
+  width: 30% !important;
+}
 /* ******************************media screens*********************** */
 @media screen and (min-width: 1200px) {
   .login-wrapper {

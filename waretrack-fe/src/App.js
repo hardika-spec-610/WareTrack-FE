@@ -16,6 +16,7 @@ import OrderDetailScreen from "./components/Orders/OrderDetailScreen";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts, listOrders } from "./redux/actions";
+import AccountSetting from "./components/AccountSetting";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
             <Route element={<EditProduct />} path="/edit/:productId" />
             <Route element={<OrderMain />} path="/orders" />
             <Route element={<OrderDetailScreen />} path="/orders/:orderId" />
+            <Route element={<AccountSetting />} path="/account" />
           </Routes>
         </Router>
       </header>

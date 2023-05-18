@@ -1,4 +1,4 @@
-import { GET_ME, GET_ME_ERROR, GET_ME_LOADING } from "../actions";
+import { GET_ME, GET_ME_ERROR, GET_ME_LOADING, UPDATE_ME } from "../actions";
 
 const initialState = {
   user: null,
@@ -9,6 +9,11 @@ const initialState = {
 const userProfileReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ME:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case UPDATE_ME:
       return {
         ...state,
         user: action.payload,
