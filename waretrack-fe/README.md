@@ -28,14 +28,14 @@ Additionally, WareTrack allows users to track yearly sales data and provides ess
 
 ## Images
 
-![image](/public/img/dashboard1.png)
+![image](../waretrack-fe/public/img/dashboard1.png)
 
-![image](/public/img/dashboard2.png)
+![image](../waretrack-fe/public/img/dashboard2.png)
 
-![image](/public/img/product1.png)
+![image](../waretrack-fe/public/img/product1.png)
 
-![image](/public/img/orders1.png)
+![image](../waretrack-fe/public/img/orders1.png)
 
-![image](/public/img/ordersDetails1.png)
+![image](../waretrack-fe/public/img/ordersDetails1.png)
 
-![image](/public/img/account1.png)
+![image](../waretrack-fe/public/img/account1.png)
