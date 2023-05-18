@@ -129,8 +129,8 @@ const Products = () => {
           <Row className="mt-4">
             {query === "" && filteredProducts
               ? filteredProducts
-                  .slice()
-                  .reverse()
+                  // .slice()
+                  // .reverse()
                   .map((p) => (
                     <ProductCard
                       key={p._id}
