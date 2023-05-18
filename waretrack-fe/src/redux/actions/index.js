@@ -21,6 +21,7 @@ export const GET_ME = "GET_ME";
 export const GET_ME_LOADING = "GET_ME_LOADING";
 export const GET_ME_ERROR = "GET_ME_ERROR";
 export const UPDATE_ME = "UPDATE_ME";
+export const UPDATE_ORDER = "UPDATE_ORDER";
 
 let token = localStorage.getItem("accessToken");
 console.log("token", token);
@@ -380,7 +381,7 @@ export const listOrders = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("order", data);
+        // console.log("order", data);
         dispatch({
           type: ORDER_LIST_SUCCESS,
           payload: data,
@@ -453,6 +454,36 @@ export const getOrderDetails = (orderId) => {
         type: ORDER_DETAILS_ERROR,
         payload: true,
       });
+    }
+  };
+};
+
+export const updateOrder = (orderId, data) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/orders/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update product.");
+      }
+
+      const updatedOrder = await response.json();
+      dispatch({
+        type: UPDATE_ORDER,
+        payload: updatedOrder,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 };

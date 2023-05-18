@@ -15,11 +15,15 @@ const OrderDetailProduct = (props) => {
           </div>
           <div>Order ID: {props.orderId}</div>
         </div>
-        <select className="ml-auto">
-          <option>change status</option>
+        <select
+          className="ml-auto"
+          onChange={props.handleStatusChange}
+          value={props.isDelivered ? "Delivered" : "Awaiting payment"}
+        >
+          <option disabled value="">
+            change status
+          </option>
           <option>Awaiting payment</option>
-          <option>Confirmed</option>
-          <option>Shipped</option>
           <option>Delivered</option>
         </select>
       </Card.Header>

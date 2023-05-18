@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 import "../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getOrderDetails } from "../../redux/actions";
+import { getOrderDetails, updateOrder } from "../../redux/actions";
 import { useNavigate, useParams } from "react-router";
 import OrderDetailProduct from "./OrderDetailProduct";
 import { format } from "date-fns";
@@ -19,6 +19,15 @@ const OrderDetailScreen = () => {
   const { orderItems } = orderDetail;
   const isLoading = useSelector((state) => state.orderDetails.isLoading);
   const isError = useSelector((state) => state.orderDetails.isError);
+
+  const handleStatusChange = (event) => {
+    console.log(event);
+    const selectedStatus = event.target.value;
+    // console.log(selectedStatus);
+    const updatedIsDelivered = selectedStatus === "Delivered";
+    dispatch(updateOrder(params.orderId, { isDelivered: updatedIsDelivered }));
+    dispatch(getOrderDetails(params.orderId));
+  };
 
   const total = orderItems.reduce(
     (acc, item) => acc + item.qty * item.product.price,
@@ -57,6 +66,8 @@ const OrderDetailScreen = () => {
           )}
           <OrderDetailProduct
             orderId={params.orderId}
+            handleStatusChange={handleStatusChange}
+            isDelivered={orderDetail.isDelivered}
             createdAt={format(new Date(orderDetail.createdAt), "PPpp")}
             userName={orderDetail.user?.firstName}
             email={orderDetail.user?.email}
