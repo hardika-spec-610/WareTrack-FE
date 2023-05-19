@@ -210,7 +210,7 @@ const Dashboard = () => {
                   }}
                   width="100%"
                   height="350px"
-                  src="https://charts.mongodb.com/charts-waretrack-wqdfw/embed/charts?id=645bbd1d-b515-4562-81a7-ba9511b11db9&maxDataAge=3600&theme=light&autoRefresh=true"
+                  src="https://charts.mongodb.com/charts-waretrack-wqdfw/embed/charts?id=64677708-fc7c-4650-8e3c-9d196eed0509&maxDataAge=3600&theme=light&autoRefresh=true"
                 ></iframe>
               </div>
             </Col>
@@ -261,24 +261,12 @@ const Dashboard = () => {
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
-                {/* <iframe
-                  title="Category wise products"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "none",
-                    borderRadius: "12px",
-                    boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
-                  }}
-                  width="100%"
-                  height="300px"
-                  src="https://charts.mongodb.com/charts-waretrack-wqdfw/embed/charts?id=645d3e56-2da3-4381-87dc-6df9ee07e609&maxDataAge=3600&theme=light&autoRefresh=true"
-                ></iframe> */}
               </div>
             </Col>
             <Col xs={12} sm={12} md={4} lg={4} xl={4}>
               <div>
                 <iframe
-                  title="Total Products"
+                  title="Yearly Orders"
                   style={{
                     background: "#FFFFFF",
                     border: "none",
@@ -287,7 +275,7 @@ const Dashboard = () => {
                   }}
                   width="100%"
                   height="292px"
-                  src="https://charts.mongodb.com/charts-waretrack-wqdfw/embed/charts?id=645d3d15-6cd4-4a9d-8b59-d817f408580a&maxDataAge=3600&theme=light&autoRefresh=true"
+                  src="https://charts.mongodb.com/charts-waretrack-wqdfw/embed/charts?id=6467791e-a471-4da1-8c96-ad936c303e9e&maxDataAge=3600&theme=light&autoRefresh=true"
                 ></iframe>
               </div>
             </Col>

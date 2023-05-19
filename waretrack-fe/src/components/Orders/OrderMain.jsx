@@ -63,7 +63,7 @@ const OrderMain = () => {
                     <td>
                       {o.isPaid ? (
                         <span className="badge rounded-pill alert-success dark-green">
-                          Paid At {format(new Date(o.paidAt), "PPP")}{" "}
+                          Paid on {format(new Date(o.paidAt), "PPP")}{" "}
                         </span>
                       ) : (
                         <span className="badge rounded-pill alert-danger dark-danger">
