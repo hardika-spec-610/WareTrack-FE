@@ -1,4 +1,6 @@
 export const GET_ALL_LOGIN = "GET_ALL_LOGIN";
+export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
+export const LOGOUT = "LOGOUT";
 export const REGISTER_USER = "REGISTER_USER";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
@@ -26,6 +28,22 @@ export const UPDATE_ORDER = "UPDATE_ORDER";
 let token = localStorage.getItem("accessToken");
 console.log("token", token);
 // const token = getState().login.token;
+
+export const setAccessToken = (accessToken) => ({
+  type: SET_ACCESS_TOKEN,
+  payload: accessToken,
+});
+export const logout = () => {
+  return (dispatch) => {
+    // Remove access token and update state
+    dispatch({
+      type: LOGOUT,
+    });
+
+    // Navigate to the desired URL
+    window.location.href = "/";
+  };
+};
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -57,9 +75,10 @@ export const registerUser = (userData) => {
 export const getAllUsers = () => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login;
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/users`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -79,9 +98,10 @@ export const getAllUsers = () => {
 export const userProfile = () => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -121,11 +141,12 @@ export const userProfile = () => {
 export const updateUserProfile = (userData) => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(userData),
       });
@@ -145,16 +166,17 @@ export const updateUserProfile = (userData) => {
 };
 
 export const updateUserImage = (userId, data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     console.log("what the fuck is happening here", data);
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/${userId}/uploadAvatar`,
         {
           method: "POST",
           body: data,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -171,9 +193,10 @@ export const updateUserImage = (userId, data) => {
 export const getAllProducts = () => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -194,11 +217,12 @@ export const getAllProducts = () => {
 export const getOneProduct = (productId) => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(
         `${process.env.REACT_APP_BE_URL}/products/${productId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -220,12 +244,13 @@ export const getOneProduct = (productId) => {
 export const addProductAction = (productData) => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
         method: "POST",
         body: JSON.stringify(productData),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -244,15 +269,16 @@ export const addProductAction = (productData) => {
 };
 
 export const updateProduct = (productId, data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(
         `${process.env.REACT_APP_BE_URL}/products/${productId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify(data),
         }
@@ -274,14 +300,15 @@ export const updateProduct = (productId, data) => {
 };
 
 export const createProduct = (data, productImage) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const res = await fetch(`${process.env.REACT_APP_BE_URL}/products`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
       if (res.ok) {
@@ -298,7 +325,7 @@ export const createProduct = (data, productImage) => {
                 method: "POST",
                 body: formData,
                 headers: {
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${accessToken}`,
                 },
               }
             );
@@ -324,16 +351,17 @@ export const createProduct = (data, productImage) => {
 };
 
 export const updateProductImage = (productId, data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     console.log("what the fuck is happening here", data);
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/products/${productId}/upload`,
         {
           method: "POST",
           body: data,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -347,14 +375,15 @@ export const updateProductImage = (productId, data) => {
 };
 
 export const deleteProduct = (productId) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const res = await fetch(
         `${process.env.REACT_APP_BE_URL}/products/${productId}`,
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -373,9 +402,10 @@ export const deleteProduct = (productId) => {
 export const listOrders = () => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/orders`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
@@ -415,11 +445,12 @@ export const listOrders = () => {
 export const getOrderDetails = (orderId) => {
   return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(
         `${process.env.REACT_APP_BE_URL}/orders/${orderId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -459,15 +490,16 @@ export const getOrderDetails = (orderId) => {
 };
 
 export const updateOrder = (orderId, data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const { accessToken } = getState().login; // Access the accessToken from the state
       const response = await fetch(
         `${process.env.REACT_APP_BE_URL}/orders/${orderId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify(data),
         }

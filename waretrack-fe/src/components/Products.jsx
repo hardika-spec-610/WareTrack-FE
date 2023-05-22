@@ -10,6 +10,8 @@ import { getAllProducts } from "../redux/actions";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  // console.log("isLoggedIn", isLoggedIn);
   const products = useSelector((state) => state.allProducts.products.products);
   // console.log("products", products);
   const [query, setQuery] = useState("");
@@ -18,17 +20,18 @@ const Products = () => {
   const [reloadPage, setReloadPage] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!isLoggedIn) {
       window.location.href = "/";
-      // Reload the page
-      // window.location.reload();
+      // Alternatively, you can use a routing library to navigate within a single-page application (SPA)
+      // history.push('/');
+    } else {
+      dispatch(getAllProducts());
+      sortedProducts();
+      const intervalId = setInterval(() => {
+        setReloadPage((prevState) => !prevState);
+      }, 5000);
+      return () => clearInterval(intervalId);
     }
-    dispatch(getAllProducts());
-    sortedProducts();
-    const intervalId = setInterval(() => {
-      setReloadPage((prevState) => !prevState);
-    }, 5000);
-    return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, reloadPage]);
 

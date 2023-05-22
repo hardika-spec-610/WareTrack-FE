@@ -11,18 +11,26 @@ import { getOrderDetails, listOrders } from "../../redux/actions";
 
 const OrderMain = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  // console.log("isLoggedIn", isLoggedIn);
   const orders = useSelector((state) => state.orderList.orders);
   const isLoading = useSelector((state) => state.orderList.isLoading);
   const isError = useSelector((state) => state.orderList.isError);
-  console.log("orders", orders);
+  // console.log("orders", orders);
   const [reloadPage, setReloadPage] = useState(false);
 
   useEffect(() => {
-    dispatch(listOrders());
-    const intervalId = setInterval(() => {
-      setReloadPage((prevState) => !prevState);
-    }, 9000);
-    return () => clearInterval(intervalId);
+    if (!isLoggedIn) {
+      window.location.href = "/";
+      // Alternatively, you can use a routing library to navigate within a single-page application (SPA)
+      // history.push('/');
+    } else {
+      dispatch(listOrders());
+      const intervalId = setInterval(() => {
+        setReloadPage((prevState) => !prevState);
+      }, 9000);
+      return () => clearInterval(intervalId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, reloadPage]);
 

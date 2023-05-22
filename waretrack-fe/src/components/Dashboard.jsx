@@ -21,8 +21,10 @@ const Dashboard = () => {
   // const isError = useSelector((state) => state.orderList.isError);
   const products = useSelector((state) => state.allProducts.products.products);
   console.log("productsdashboard", products);
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  // console.log("isLoggedIn", isLoggedIn);
 
-  let totalProducts = products.length;
+  let totalProducts = products?.length;
   const productSales = {};
   const productMap = {};
 
@@ -73,15 +75,15 @@ const Dashboard = () => {
   console.log("topSellingProducts", topSellingProducts);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!isLoggedIn) {
       window.location.href = "/";
-      // Reload the page
-      // window.location.reload();
+      // Alternatively, you can use a routing library to navigate within a single-page application (SPA)
+      // history.push('/');
+    } else {
+      dispatch(listOrders());
+      dispatch(getAllProducts());
+      // Call additional actions or functions if needed
     }
-    dispatch(listOrders());
-    dispatch(getAllProducts());
-    gellProducts();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -92,26 +94,6 @@ const Dashboard = () => {
   );
 
   console.log(lowStockProducts);
-
-  const gellProducts = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BE_URL}/products/sort`,
-        {
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("productSort", data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="d-flex">

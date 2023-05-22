@@ -9,13 +9,17 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import "../css/styles.css";
 import Logo from "../assets/Logo.svg";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/actions";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const handleLogout = () => {
     // Remove user data from session storage
-    localStorage.removeItem("accessToken");
+    // localStorage.removeItem("accessToken");
+    dispatch(logout());
     // Navigate to login page
     window.location.href = "/";
     // Reload the page
