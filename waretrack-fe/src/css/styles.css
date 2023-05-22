@@ -118,7 +118,7 @@
 }
 /* ***********************************dashboard************************* */
 .eeogEO a {
-  color: inherit;
+  color: inherit !important;
 }
 .hero-section {
   padding-inline: 25px;
